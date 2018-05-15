@@ -1,17 +1,23 @@
 language: java
+
 sudo: false
+
 env:
-- MAVEN_OPTS=-Xmx1024M
+  - MAVEN_OPTS=-Xmx1024M
+
 cache:
   directories:
-  - "$HOME/.m2/repository"
+    - "$HOME/.m2/repository"
+
 before_install:
-- mvn compile
+  - mvn compile
+
 install:
-- echo 'Skipping install stage, dependencies will be downloaded during build and test
-  stages.'
+  - echo 'Skipping install stage, dependencies will be downloaded during build and test stages.'
+
 script:
-- mvn clean package -Dmaven.test.skip=false
+  - mvn clean package -Dmaven.test.skip=false
+
 deploy:
   provider: releases
   api_key:
