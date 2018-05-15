@@ -1,12 +1,21 @@
 language: java
 sudo: false
-
 env:
-  # Give Maven 1GB of memory to work with
-  - MAVEN_OPTS=-Xmx1024M
-
+- MAVEN_OPTS=-Xmx1024M
+cache:
+  directories:
+  - "$HOME/.m2/repository"
+before_install:
+- mvn compile
 install:
-  - "echo 'Skipping install stage, dependencies will be downloaded during build and test stages.'"
-
+- echo 'Skipping install stage, dependencies will be downloaded during build and test
+  stages.'
 script:
-  - "mvn clean package -Dmaven.test.skip=false"
+- mvn clean package -Dmaven.test.skip=false
+deploy:
+  provider: releases
+  api_key:
+    secure: X/S04uqiTY4dSf82HJKt+16v52Mq6hF0Q5OySTmgALMmU0RnGiy+23LQ1vxBubNDOMps3JJFaLINZFejyTA4VTqwwjT4hECCK+AqNSDHoaO7dCnXpnROWj3ZsJgdoLIUJYrb65Q8V1+uO6xv/o0TliTckJN7sSZM9jqS42ldsHwQXvLmXGPoolyUFTRYzYArsdJxiB2jKmol8qx4BTMNUAyZRKEOfRRiHltHe4PzywtvKvbmjbZEAHsZaOXloRZYnYQdkKX4J0t3TYkt+fMTGCpCEhPZEuwXcmMBJ/Xmr3vjfjrdeIs1IXWbkJ2lCuw3WDeaYuem9HXWya+aVk3rRYwtUPSwz3Y8bqld58HvnjdtNyauMi7OCOd4w2p3tvB7gMLQaH56Ip2BRM7rJD6ZW15o07fjcsaCPiJmZcV+rWaFgBZv58aw6G4JL5vWt9vEygK5QufX5bWWdEz2GRrBIwHLuZtlrUcF7Rd4hIJ7ZZwin7QhX8L1oEDxVuy49axDB5kCsY2didcBO6RhakhxXrU2RKkb88DkQXEFkSgKxsHvJNeZM4LclodgPVHqMU1Q/d+mI81PZnGtuuuAwOHwfNVg0zX+yphohUeMNscGA3AefzP3i5RMR7dHJO9jc1ZSfnqDuE8svzVwhO7YwWLzeh0liLSVkOuj7+DY9LMjRhM=
+  on:
+    repo: sul-dlss-labs/Vitro
+    branch: maint-rel-1.9
