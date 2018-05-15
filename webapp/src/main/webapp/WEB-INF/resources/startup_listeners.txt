@@ -29,7 +29,6 @@ edu.cornell.mannlib.vitro.webapp.web.images.PlaceholderUtil$Setup
 edu.cornell.mannlib.vitro.webapp.servlet.setup.FileGraphSetup
 
 edu.cornell.mannlib.vitro.webapp.application.ApplicationImpl$ReasonersSetup
-edu.cornell.mannlib.vitro.webapp.servlet.setup.SimpleReasonerSetup
 
 # Must run after JenaDataSourceSetup
 edu.cornell.mannlib.vitro.webapp.servlet.setup.ThemeInfoSetup
