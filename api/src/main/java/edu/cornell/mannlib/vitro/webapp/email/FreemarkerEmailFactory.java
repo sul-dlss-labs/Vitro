@@ -150,6 +150,7 @@ public class FreemarkerEmailFactory {
 	private Session createEmailSession(String hostName) {
 		Properties props = new Properties(System.getProperties());
 		props.put("mail.smtp.host", hostName);
+		props.put("mail.smtp.starttls.enable", "true");
 		return Session.getDefaultInstance(props, null);
 	}
 
