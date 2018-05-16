@@ -5,7 +5,7 @@ set :repo_url, 'https://github.com/sul-dlss-labs/Vitro.git'
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/opt/app/vitro/src/Vitro"
+set :deploy_to, '/opt/app/vitro'
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -30,15 +30,16 @@ set :deploy_to, "/opt/app/vitro/src/Vitro"
 # set :keep_releases, 5
 
 # update shared_configs before restarting app
-#before 'deploy:restart', 'shared_configs:update'
+# before 'deploy:restart', 'shared_configs:update'
 
-# namespace :maven do
-#   desc 'package'
-#   task :package do
-#     on roles(:app) do
-#       execute "cd #{current_path} && /usr/local/maven/bin/mvn clean package"
-#     end
-#   end
-# end
+namespace :maven do
+  desc 'install'
+  task :install do
+    on roles(:app) do
+      execute "cd #{current_path} \
+      && /usr/local/maven/bin/mvn install -s rialto-vitro-settings.xml"
+    end
+  end
+end
 #
-# after 'deploy:finished', 'maven:package'
+# after 'deploy:finished', 'maven:install'
