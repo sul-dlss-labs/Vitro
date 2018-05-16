@@ -25,3 +25,4 @@ deploy:
   on:
     repo: sul-dlss-labs/Vitro
     branch: maint-rel-1.9
+    tags: true
