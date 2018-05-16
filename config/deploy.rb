@@ -5,17 +5,7 @@ set :repo_url, 'https://github.com/sul-dlss-labs/Vitro.git'
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/opt/app/vitro/src/Vitro"
-
-# Default value for :format is :airbrussh.
-# set :format, :airbrussh
-
-# You can configure the Airbrussh format using :format_options.
-# These are the defaults.
-# set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
-
-# Default value for :pty is false
-# set :pty, true
+set :deploy_to, '/opt/app/vitro'
 
 # Default value for :linked_files is []
 # append :linked_files, 'config/config.sh'
@@ -30,15 +20,26 @@ set :deploy_to, "/opt/app/vitro/src/Vitro"
 # set :keep_releases, 5
 
 # update shared_configs before restarting app
-#before 'deploy:restart', 'shared_configs:update'
+# before 'deploy:restart', 'shared_configs:update'
 
-# namespace :maven do
-#   desc 'package'
-#   task :package do
-#     on roles(:app) do
-#       execute "cd #{current_path} && /usr/local/maven/bin/mvn clean package"
-#     end
-#   end
-# end
-#
-# after 'deploy:finished', 'maven:package'
+namespace :maven do
+  desc 'Install the Vitro project using Maven with the specified settings file'
+  task :install do
+    on roles(:app) do
+      execute "cd #{current_path} \
+      && /usr/local/maven/bin/mvn install -s rialto-vitro-settings.xml"
+    end
+  end
+end
+
+namespace :tomcat do
+  desc 'Restarts Tomcat on the server'
+  task :restart do
+    on roles(:app) do
+      execute 'sudo service tomcat restart'
+    end
+  end
+end
+
+after 'deploy:finished', 'maven:install'
+after 'deploy:finished', 'tomcat:restart'
