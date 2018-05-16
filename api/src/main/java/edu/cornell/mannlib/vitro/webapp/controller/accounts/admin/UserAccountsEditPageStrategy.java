@@ -9,13 +9,17 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import edu.cornell.mannlib.vitro.webapp.beans.UserAccount;
+import edu.cornell.mannlib.vitro.webapp.config.ConfigurationProperties;
 import edu.cornell.mannlib.vitro.webapp.controller.VitroRequest;
 import edu.cornell.mannlib.vitro.webapp.controller.accounts.UserAccountsPage;
 import edu.cornell.mannlib.vitro.webapp.controller.authenticate.Authenticator;
 import edu.cornell.mannlib.vitro.webapp.controller.freemarker.UrlBuilder;
 import edu.cornell.mannlib.vitro.webapp.email.FreemarkerEmailFactory;
 import edu.cornell.mannlib.vitro.webapp.email.FreemarkerEmailMessage;
+
 
 /**
  * Handle the variant details of the UserAccountsAddPage.
@@ -58,6 +62,7 @@ public abstract class UserAccountsEditPageStrategy extends UserAccountsPage {
 		private static final String PARAMETER_RESET_PASSWORD = "resetPassword";
 		private static final String EMAIL_TEMPLATE = "userAccounts-passwordResetPendingEmail.ftl";
 
+		public static final String BASE_URL_PROPERTY = "Vitro.baseUrl";
 		public static final String RESET_PASSWORD_URL = "/accounts/resetPassword";
 
 		private boolean resetPassword;
@@ -126,13 +131,26 @@ public abstract class UserAccountsEditPageStrategy extends UserAccountsPage {
 				String relativeUrl = UrlBuilder.getUrl(RESET_PASSWORD_URL,
 						"user", email, "key", hash);
 
-				URL context = new URL(vreq.getRequestURL().toString());
-				URL url = new URL(context, relativeUrl);
+				URL url = new URL(getBaseUrlFromConfigOrRequest(), relativeUrl);
 				return url.toExternalForm();
 			} catch (MalformedURLException e) {
 				return "error_creating_password_link";
 			}
 		}
+
+                private URL getBaseUrlFromConfigOrRequest() {
+                    try {
+			ServletContext ctx = vreq.getSession().getServletContext();
+			ConfigurationProperties config = ConfigurationProperties.getBean(ctx);
+			String baseUrlString = config.getProperty(BASE_URL_PROPERTY, "");
+			if (baseUrlString.isEmpty()) {
+			    return new URL(vreq.getRequestURL().toString());
+			}
+			return new URL(baseUrlString);
+		    } catch (MalformedURLException e) {
+			throw new RuntimeException("Could not find baseUrl");
+		    }
+                }
 
 		@Override
 		protected boolean wasPasswordEmailSent() {

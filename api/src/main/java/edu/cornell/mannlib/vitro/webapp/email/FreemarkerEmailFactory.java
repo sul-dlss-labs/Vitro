@@ -31,11 +31,11 @@ import freemarker.template.Configuration;
 
 /**
  * A factory that creates Freemarker-based email messages.
- * 
+ *
  * Client code should call isConfigured(), to be sure that the required email
  * properties have been provided. If isConfigured() returns false, the client
  * code should respond accordingly.
- * 
+ *
  * On the other hand, if the configuration properties are provided, but are
  * syntactically invalid, an exception is thrown and startup is aborted.
  */
@@ -45,6 +45,7 @@ public class FreemarkerEmailFactory {
 
 	public static final String SMTP_HOST_PROPERTY = "email.smtpHost";
 	public static final String REPLY_TO_PROPERTY = "email.replyTo";
+	public static final String ENABLE_TLS_FOR_SMTP_PROPERTY = "email.enableTlsForSmtp";
 
 	private static final String ATTRIBUTE_NAME = FreemarkerEmailFactory.class
 			.getName();
@@ -97,7 +98,7 @@ public class FreemarkerEmailFactory {
 		new SmtpHostTester().test(this.smtpHost);
 
 		this.replyToAddress = getReplyToAddressFromConfig(ctx);
-		this.emailSession = createEmailSession(smtpHost);
+		this.emailSession = createEmailSession(smtpHost, ctx);
 	}
 
 	String getSmtpHost() {
@@ -147,9 +148,16 @@ public class FreemarkerEmailFactory {
 		}
 	}
 
-	private Session createEmailSession(String hostName) {
+	private Session createEmailSession(String hostName, ServletContext ctx) {
 		Properties props = new Properties(System.getProperties());
 		props.put("mail.smtp.host", hostName);
+
+		ConfigurationProperties config = ConfigurationProperties.getBean(ctx);
+		boolean enableTlsForSmtp = Boolean.valueOf(config.getProperty(ENABLE_TLS_FOR_SMTP_PROPERTY, ""));
+		if (enableTlsForSmtp) {
+			props.put("mail.smtp.starttls.enable", "true");
+		}
+
 		return Session.getDefaultInstance(props, null);
 	}
 
@@ -188,7 +196,7 @@ public class FreemarkerEmailFactory {
 		/**
 		 * Try to open a connection to the SMTP host and conduct an "empty"
 		 * conversation using SMTP.
-		 * 
+		 *
 		 * @throws InvalidSmtpHost
 		 *             If anything goes wrong.
 		 */
