@@ -11,12 +11,9 @@ cache:
 
 before_install:
   - mvn compile
-  - cat webapp/src/main/webapp/config/listViewConfig-default.xml 
 
-install:
-  - mvn clean install
-  - cat webapp/src/main/webapp/config/listViewConfig-default.xml
-  #- echo 'Skipping install stage, dependencies will be downloaded during build and test stages.'
+install: true
+  - echo 'Skipping install stage, dependencies will be downloaded during build and test stages.'
 
 script:
   - mvn clean package -Dmaven.test.skip=false
