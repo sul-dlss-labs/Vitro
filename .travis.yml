@@ -10,10 +10,13 @@ cache:
     - "$HOME/.m2/repository"
 
 before_install:
-  - mvn install && mvn compile
+  - mvn compile
+	- cat webapp/src/main/webapp/config/listViewConfig-default.xml 
 
 install:
-  - echo 'Skipping install stage, dependencies will be downloaded during build and test stages.'
+	- mvn clean install
+	- cat webapp/src/main/webapp/config/listViewConfig-default.xml
+  #- echo 'Skipping install stage, dependencies will be downloaded during build and test stages.'
 
 script:
   - mvn clean package -Dmaven.test.skip=false
