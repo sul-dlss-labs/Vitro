@@ -9,14 +9,14 @@ cache:
   directories:
     - "$HOME/.m2/repository"
 
-before_install:
-  - mvn compile
+#before_install:
+#  - mvn compile
 
 install: true
-  - echo 'Skipping install stage, dependencies will be downloaded during build and test stages.'
 
 script:
-  - mvn clean package -Dmaven.test.skip=false
+#  - mvn clean package -Dmaven.test.skip=false
+  - mvn clean test
 
 deploy:
   provider: releases
