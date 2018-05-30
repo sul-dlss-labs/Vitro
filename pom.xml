@@ -66,6 +66,7 @@
         <module>webapp</module>
         <module>solr</module>
         <module>home</module>
+        <module>rialto</module>
     </modules>
 
     <profiles>
