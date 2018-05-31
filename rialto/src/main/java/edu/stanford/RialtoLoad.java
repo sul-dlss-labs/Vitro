@@ -9,7 +9,7 @@ import com.hp.hpl.jena.tdb.sys.TDBInternal;
 
 import java.util.Iterator;
 
-public class RialtoTDBLoad {
+public class RialtoLoad {
 
     public static void main(String args[]) {
 

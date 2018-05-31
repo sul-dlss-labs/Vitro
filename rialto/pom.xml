@@ -27,7 +27,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>edu.stanford.RialtoTDBLoad</mainClass>
+                            <mainClass>edu.stanford.RialtoLoad</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -38,7 +38,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>edu.stanford.RialtoTDBLoad</mainClass>
+                            <mainClass>edu.stanford.RialtoLoad</mainClass>
                         </manifest>
                     </archive>
                     <descriptor>src/assembly/jar-with-dependencies.xml</descriptor>
