@@ -22,7 +22,7 @@ public class RialtoLoad {
 
         // args[0] is expected to be the tcdContentModels directory, e.g.
         // /usr/local/vitro/home/tdbContentModels       OR    /opt/app/vitro/home/tdbContentModels
-        Dataset dataset = TDBFactory.createDataset();
+        Dataset dataset = TDBFactory.createDataset(args[0]);
         String graphURI = "http://vitro.mannlib.cornell.edu/default/vitro-kb-2";
         Model model = dataset.getNamedModel(graphURI);
         dataset.begin(ReadWrite.WRITE);
@@ -34,7 +34,7 @@ public class RialtoLoad {
             // args[1] is expected to be the agents directory in the sample data set, e.g.
             // /Users/tommyi/Documents/projects/rialto/github/rialto-etl/sample_data/vivo/agents         OR
             // /opt/app/vitro/data/rialto-sample-data/vivo/agents
-            List<String> filesToLoad = Files.walk(Paths.get(args[0]))
+            List<String> filesToLoad = Files.walk(Paths.get(args[1]))
                                           .filter(s -> s.toString().endsWith(".nt"))
                                           .map(Path::toString)
                                           .sorted()
