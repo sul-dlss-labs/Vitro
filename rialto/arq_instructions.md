@@ -2,9 +2,11 @@
 2. Delete the contents of /usr/local/vitro/home/tdbContentModels and /usr/local/vitro/home/tdbModels
 3. Compile and run the Java class as below:
 
-~/Documents/projects/rialto/github/Vitro/rialto(73-tdb-load)$ javac -cp "lib/*" src/main/java/RialtoArq.java
-~/Documents/projects/rialto/github/Vitro/rialto(73-tdb-load)$ mv src/main/java/RialtoArq.class .
-~/Documents/projects/rialto/github/Vitro/rialto(73-tdb-load)$ time java -cp "lib/*:." RialtoArq /usr/local/vitro/home/tdbContentModels  /Users/tommyi/Documents/projects/rialto/github/rialto-etl/sample_data/vivo/agents
+```
+github/Vitro/rialto(73-tdb-load)$ javac -cp "lib/*" src/main/java/RialtoArq.java
+github/Vitro/rialto(73-tdb-load)$ mv src/main/java/RialtoArq.class .
+github/Vitro/rialto(73-tdb-load)$ time java -cp "lib/*:." RialtoArq /usr/local/vitro/home/tdbContentModels  /Users/tommyi/Documents/projects/rialto/github/rialto-etl/sample_data/vivo/agents
+```
 
 4. Start Tomcat (`sudo /sbin/service tomcat start`)
 5. Verify using e.g.
