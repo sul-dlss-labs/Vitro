@@ -10,12 +10,12 @@ github/Vitro/rialto(73-tdb-load)$ time java -cp "lib/*:." RialtoArq /usr/local/v
 
 4. Start Tomcat (`sudo /sbin/service tomcat start`)
 5. Verify using e.g.
-
+```sparql
 SELECT ?s ?p ?o
 WHERE
 {
   GRAPH <http://vitro.mannlib.cornell.edu/default/vitro-kb-2> { ?s ?p ?o }
 }
 LIMIT 1000
-
+```
 
