@@ -1,0 +1,19 @@
+1. Stop Tomcat
+2. Delete the contents of /usr/local/vitro/home/tdbContentModels and /usr/local/vitro/home/tdbModels
+3. Compile and run the Java class as below:
+
+~/Documents/projects/rialto/github/Vitro/rialto(73-tdb-load)$ javac -cp "lib/*" src/main/java/RialtoArq.java
+~/Documents/projects/rialto/github/Vitro/rialto(73-tdb-load)$ mv src/main/java/RialtoArq.class .
+~/Documents/projects/rialto/github/Vitro/rialto(73-tdb-load)$ time java -cp "lib/*:." RialtoArq /usr/local/vitro/home/tdbContentModels  /Users/tommyi/Documents/projects/rialto/github/rialto-etl/sample_data/vivo/agents
+
+4. Start Tomcat
+5. Verify using e.g.
+
+SELECT ?s ?p ?o
+WHERE
+{
+  GRAPH <http://vitro.mannlib.cornell.edu/default/vitro-kb-2> { ?s ?p ?o }
+}
+LIMIT 1000
+
+
