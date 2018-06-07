@@ -1,4 +1,4 @@
-1. Stop Tomcat
+1. Stop Tomcat (`sudo /sbin/service tomcat stop`)
 2. Delete the contents of /usr/local/vitro/home/tdbContentModels and /usr/local/vitro/home/tdbModels
 3. Compile and run the Java class as below:
 
@@ -6,7 +6,7 @@
 ~/Documents/projects/rialto/github/Vitro/rialto(73-tdb-load)$ mv src/main/java/RialtoArq.class .
 ~/Documents/projects/rialto/github/Vitro/rialto(73-tdb-load)$ time java -cp "lib/*:." RialtoArq /usr/local/vitro/home/tdbContentModels  /Users/tommyi/Documents/projects/rialto/github/rialto-etl/sample_data/vivo/agents
 
-4. Start Tomcat
+4. Start Tomcat (`sudo /sbin/service tomcat start`)
 5. Verify using e.g.
 
 SELECT ?s ?p ?o
