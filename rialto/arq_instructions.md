@@ -6,6 +6,10 @@
 github/Vitro/rialto(73-tdb-load)$ javac -cp "lib/*" src/main/java/RialtoArq.java
 github/Vitro/rialto(73-tdb-load)$ mv src/main/java/RialtoArq.class .
 github/Vitro/rialto(73-tdb-load)$ time java -cp "lib/*:." RialtoArq /usr/local/vitro/home/tdbContentModels  /Users/tommyi/Documents/projects/rialto/github/rialto-etl/sample_data/vivo/agents
+
+on the server:
+cd current/rialto
+time java -cp "lib/*:." RialtoArq ~/home/tdbContentModels ~/data/rialto-sample-data/vivo/agents
 ```
 
 4. Start Tomcat (`sudo /sbin/service tomcat start`)
